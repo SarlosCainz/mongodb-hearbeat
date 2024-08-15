@@ -1,0 +1,13 @@
+services:
+  {{ CONTAINER_NAME }}:
+{% if REGISTRY is defined %}
+    image: {{ REGISTRY }}/{{ CONTAINER_NAME }}:{{ IMAGE_TAG }}
+{% else %}
+    image: {{ CONTAINER_NAME }}:{{ IMAGE_TAG }}
+{% endif %}
+    container_name: {{ CONTAINER_NAME }}
+    environment:
+     - db_hosts=${db_hosts}
+     - db_password=${db_password}
+     - heartbeat_url=${heartbeat_url}
+    restart: unless-stopped

@@ -1,0 +1,50 @@
+- name: create dest dir
+  ansible.builtin.file:
+    path: "{{ dest_dir }}"
+    state: directory
+    mode: 0755
+
+- name: create compose.yml
+  template:
+    src: compose.j2
+    dest: "{{ dest_dir }}/compose.yml"
+    mode: 0644
+
+- name: create Makefile
+  template:
+    src: Makefile.j2
+    dest: "{{ dest_dir }}/Makefile"
+    mode: 0644
+
+- name: check file .env
+  stat:
+    path: "{{ dest_dir }}/.env"
+  register: check_dot_env
+
+- name: copy .env
+  copy:
+    src: dot.env
+    dest: "{{ dest_dir }}/.env"
+  when: not check_dot_env.stat.exists
+
+- name: install docker compose
+  pip:
+    name: docker-compose
+  when: docker_api == "v1"
+
+- name: Start order(v1)
+  docker_compose:
+    project_src: "{{ dest_dir }}"
+    pull: yes
+    restarted: yes
+    state: present
+  changed_when: no
+  when: docker_api == "v1"
+
+- name: Start order(v2)
+  community.docker.docker_compose_v2:
+    project_src: "{{ dest_dir }}"
+    pull: missing
+    state: present
+  changed_when: no
+  when: docker_api == "v2"
