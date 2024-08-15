@@ -33,6 +33,7 @@ def job():
     logger.debug(uri)
 
     client = MongoClient(uri)
+    time.sleep(1)
 
     found = False
     node_count = len(settings.db_hosts)
@@ -41,13 +42,13 @@ def job():
             req = urllib.request.Request(settings.heartbeat_url)
             urllib.request.urlopen(req)
             found = True
-            logger.info("OK")
+            logger.debug("OK")
             break
-        logger.debug(client.nodes)
         time.sleep(1)
 
     if not found:
-        logger.debug("NG")
+        logger.info("NG")
+        logger.debug(client.nodes)
 
 
 def main():

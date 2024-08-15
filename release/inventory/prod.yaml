@@ -1,7 +1,7 @@
 ---
 all:
   hosts:
-    lanza:
+    docker:
   vars:
-    dest_dir: /opt/docker/mongo-heatbeat
+    dest_dir: /opt/docker/mongo-heartbeat
     docker_api: v1

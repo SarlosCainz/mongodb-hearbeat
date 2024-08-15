@@ -1,10 +1,10 @@
 .PHONY: release
 
-CONTAINER_NAME := mongodb-heatbeat
+CONTAINER_NAME := mongodb-heartbeat
 REGISTRY := docker.home.sarlos.jp
 IMAGE := $(REGISTRY)/$(CONTAINER_NAME)
 
-VER := 0.0.1
+VER := 0.0.2
 RELEASE_DIR := release
 
 SRC := $(shell find src -name \*.py)
