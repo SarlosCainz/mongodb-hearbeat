@@ -8,6 +8,7 @@ services:
     container_name: {{ CONTAINER_NAME }}
     environment:
      - db_hosts=${db_hosts}
+     - db_replica_set=${db_replica_set}
      - db_password=${db_password}
      - heartbeat_url=${heartbeat_url}
      - debug=${debug}

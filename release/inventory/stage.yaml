@@ -1,8 +1,8 @@
 ---
 all:
   hosts:
-    daigo-ap:
+    docker:
   vars:
     dest_dir: /opt/docker/mongo-heartbeat
     docker_api: v1
-    AWS_PROFILE:
+    AWS_PROFILE: daigo

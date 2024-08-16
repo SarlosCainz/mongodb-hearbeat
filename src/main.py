@@ -29,7 +29,9 @@ def job():
     password = urllib.parse.quote_plus(settings.db_password)
     host = ",".join(settings.db_hosts)
 
-    uri = f"mongodb://{user}:{password}@{host}/?replicaSet={settings.db_replica_set}"
+    uri = f"mongodb://{user}:{password}@{host}/"
+    if len(settings.db_replica_set) != 0:
+        uri = uri + f"?replicaSet={settings.db_replica_set}"
     logger.debug(uri)
 
     client = MongoClient(uri)
